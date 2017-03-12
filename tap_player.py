@@ -2,9 +2,9 @@
     Flask app that plays music.  Super annoying, hopefully.
 """
 import os
-import winsound
-
 from flask import Flask, render_template
+import pygame
+import time
 
 # Not ideal, but since it's just being used across a home network not concerned at the moment.
 app = Flask(__name__, static_url_path='/static')
@@ -16,7 +16,9 @@ def load_home():
 
 @app.route('/play')
 def play_track():
-    winsound.PlaySound('D:\code\tap-player\test.wmv', winsound.SND_FILENAME)
+    pygame.mixer.init()
+    pygame.mixer.music.load('media/sandman5.ogg')
+    pygame.mixer.music.play()
     return render_template('play.html')
 
 if __name__ == "__main__":
